@@ -24,7 +24,7 @@ $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
 // Register and use CSS
 $wa->registerAndUseStyle(
     'mod_cookie_consent.consent',
-    'media/mod_cookie_consent/css/consent.css',
+    'media/mod_cookie_consent/css/consent.min.css',
     [],
     [],
     []
@@ -33,7 +33,7 @@ $wa->registerAndUseStyle(
 // Register and use JavaScript
 $wa->registerAndUseScript(
     'mod_cookie_consent.consent',
-    'media/mod_cookie_consent/js/consent.js',
+    'media/mod_cookie_consent/js/consent.min.js',
     [],
     ['defer' => true],
     []

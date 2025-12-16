@@ -1,4 +1,4 @@
-# Cookie Consent Module
+x# Cookie Consent Module
 
 Joomla 5/6 module for GDPR-compliant cookie consent management for third-party services (YouTube, etc.).
 
@@ -24,7 +24,8 @@ This module provides a cookie consent banner for managing user consent to third-
 
 1. Build the package:
    ```bash
-   pnpm build
+   npm install
+   npm run release
    ```
 
 2. Upload the generated ZIP file via Joomla Administrator:
@@ -83,19 +84,39 @@ window.addEventListener('cookieConsentChanged', (event) => {
 
 ## Development
 
-### Build Package
+### Build Process
+
+The module uses a modern build toolchain with asset minification:
 
 ```bash
-pnpm build
+# Install dependencies
+npm install
+
+# Build minified assets (JS + CSS)
+npm run build
+
+# Build JS only
+npm run build:js
+
+# Build CSS only
+npm run build:css
+
+# Create Joomla installation package
+npm run package
+
+# Build and package in one command
+npm run release
 ```
 
-This creates a `mod_cookie_consent-{version}.zip` file ready for Joomla installation.
+**Build Output:**
+- `media/js/consent.min.js` - Minified JavaScript (ES2020 target)
+- `media/css/consent.min.css` - Minified CSS with vendor prefixes
+
+The package ZIP **only includes minified assets**, not source files, for optimal production performance.
 
 ### Creating Releases
 
 This project uses [changelogen](https://github.com/unjs/changelogen) for automated changelog generation and releases based on conventional commits.
-
-**Prerequisites:** This project uses pnpm for package management. Install it with `npm install -g pnpm` if you don't have it.
 
 #### Commit Message Format
 
@@ -130,34 +151,34 @@ git commit -m "docs: update integration examples"
 
 Install dependencies first:
 ```bash
-pnpm install
+npm install
 ```
 
-**Before releasing**, update version numbers in two files:
+**Before releasing**, update version numbers in three files:
 
-1. **`mod_cookie_consent.xml`**:
+1. **`package.json`**:
+   - Update the `version` field to match the new version
+
+2. **`mod_cookie_consent.xml`**:
    - Update the `<version>` tag to match the new version
 
-2. **`update-manifest.xml`**:
+3. **`update-manifest.xml`**:
    - Update the `<version>` tag to match the new version
    - Update the download URL to match the new version tag and filename
 
-3. Commit these changes
+4. Commit these changes
 
 Then create a release:
 
 ```bash
 # Patch release (0.1.0 -> 0.1.1) - for bug fixes
-pnpm release:patch
+npm run release:patch
 
 # Minor release (0.1.0 -> 0.2.0) - for new features
-pnpm release:minor
+npm run release:minor
 
 # Major release (0.1.0 -> 1.0.0) - for breaking changes
-pnpm release:major
-
-# Auto-detect version bump from commits
-pnpm release
+npm run release:major
 ```
 
 This will:
@@ -167,14 +188,14 @@ This will:
 4. Create a git tag (e.g., `v0.2.0`)
 5. Push to GitHub
 6. Create a GitHub release with changelog
-7. Trigger GitHub Actions to build and attach the ZIP file
+7. Trigger GitHub Actions to build, minify, package, and attach the ZIP file
 
 #### Manual Changelog Generation
 
 To generate changelog without releasing:
 
 ```bash
-pnpm changelog
+npm run changelog
 ```
 
 ### What Gets Packaged
@@ -188,10 +209,12 @@ The build script includes only the necessary files:
 
 Excluded from package:
 - `.idea/` - IDE files
-- `.git/` - Git repository
+- `.git/`, `.github/` - Git repository and workflows
+- `.build/` - Build scripts
 - `node_modules/` - Dependencies
-- `build.js`, `package.json` - Build files
+- `package.json`, `package-lock.json` - npm files
 - `*.zip` - Previous builds
+- Source assets (only minified versions included)
 
 ## Continuous Integration
 
@@ -201,16 +224,18 @@ The module includes a GitHub Actions workflow (`.github/workflows/release.yml`) 
 
 #### How It Works
 
-When you run `pnpm release:minor` (or patch/major):
+When you run `npm run release:minor` (or patch/major):
 1. **Changelogen** creates the GitHub release with changelog
 2. **GitHub Actions** triggers automatically on release creation
-3. **Workflow** builds the ZIP and attaches it to the release
+3. **Workflow** builds minified assets, creates the ZIP, and attaches it to the release
 
 The workflow:
 1. Checks out the code
-2. Installs dependencies with pnpm
-3. Builds the installable ZIP package
-4. Uploads the ZIP to the release created by changelogen
+2. Sets up Node.js LTS with npm caching
+3. Installs dependencies with `npm ci`
+4. Minifies JS and CSS assets
+5. Creates the installable ZIP package (with only minified assets)
+6. Uploads the ZIP to the release created by changelogen
 
 No manual intervention needed - just run the release command!
 

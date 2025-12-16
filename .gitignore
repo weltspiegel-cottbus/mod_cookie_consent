@@ -1,5 +1,7 @@
 # Build artifacts
 *.zip
+*.min.js
+*.min.css
 
 # Dependencies
 node_modules/

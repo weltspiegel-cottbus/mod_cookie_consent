@@ -1,22 +1,27 @@
 {
   "name": "mod_cookie_consent",
-  "license": "MIT",
   "version": "0.1.0",
   "description": "Cookie Consent Banner für Drittanbieter-Dienste (YouTube, etc.)",
+  "type": "module",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/weltspiegel-cottbus/mod_cookie_consent.git"
   },
   "scripts": {
-    "build": "node build.js",
-    "package": "npm run build",
+    "build:js": "node .build/build.mjs --js",
+    "build:css": "node .build/build.mjs --css",
+    "build": "npm run build:js && npm run build:css",
+    "package": "node .build/package.mjs",
+    "release": "npm run build && npm run package",
     "changelog": "changelogen --output CHANGELOG.md --noAuthors",
     "release:patch": "changelogen --release --patch --push --noAuthors",
     "release:minor": "changelogen --release --minor --push --noAuthors",
-    "release:major": "changelogen --release --major --push --noAuthors",
-    "release": "changelogen --release --push --noAuthors"
+    "release:major": "changelogen --release --major --push --noAuthors"
   },
   "devDependencies": {
-    "changelogen": "^0.6.2"
+    "changelogen": "^0.6.2",
+    "esbuild": "^0.27.1",
+    "lightningcss": "^1.28.3"
   }
 }

@@ -1,16 +1,23 @@
 #!/usr/bin/env node
 
 /**
- * Build script for mod_cookie_consent
+ * Package script for mod_cookie_consent
  * Creates a ZIP file ready for Joomla installation
  */
 
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
+import fs from 'fs';
+import path from 'path';
+import { execSync } from 'child_process';
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const rootDir = path.resolve(__dirname, '..');
+
+// Read version from package.json
+const packageJson = JSON.parse(fs.readFileSync(path.join(rootDir, 'package.json'), 'utf8'));
 const moduleName = 'mod_cookie_consent';
-const version = require('./package.json').version;
+const version = packageJson.version;
 const outputFile = `${moduleName}-${version}.zip`;
 
 // Files and folders to exclude from the package
@@ -19,24 +26,30 @@ const excludePatterns = [
     '.git',
     '.gitignore',
     '.github',
+    '.build',
     '.changelogrc',
     '.env',
     'node_modules',
-    'build.js',
     'package.json',
-    'pnpm-lock.yaml',
+    'package-lock.json',
     'update-manifest.xml',
     'CHANGELOG.md',
     'README.md',
-    '*.zip'
+    '*.zip',
+    // Exclude source files (only include minified)
+    'media/js/consent.js',
+    'media/css/consent.css'
 ];
 
 // Build the exclude arguments for zip command
 const excludeArgs = excludePatterns.map(pattern => `-x "*/${pattern}/*" "*${pattern}*"`).join(' ');
 
-console.log(`Building ${moduleName} v${version}...`);
+console.log(`Packaging ${moduleName} v${version}...\n`);
 
 try {
+    // Change to root directory
+    process.chdir(rootDir);
+
     // Remove old zip file if it exists
     if (fs.existsSync(outputFile)) {
         fs.unlinkSync(outputFile);
@@ -52,6 +65,6 @@ try {
     console.log(`✓ Ready for Joomla installation`);
 
 } catch (error) {
-    console.error('Error creating package:', error.message);
+    console.error('✗ Error creating package:', error.message);
     process.exit(1);
 }

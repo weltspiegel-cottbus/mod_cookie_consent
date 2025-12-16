@@ -2,18 +2,18 @@
   "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
   "name": "mod_cookie_consent",
   "version": "0.1.0",
-  "description": "Cookie Consent Module Assets",
+  "description": "Cookie Consent Module Assets (documentation only - assets are registered programmatically in tmpl/default.php)",
   "license": "MIT",
   "assets": [
     {
       "name": "mod_cookie_consent.consent",
       "type": "style",
-      "uri": "mod_cookie_consent/css/consent.css"
+      "uri": "mod_cookie_consent/css/consent.min.css"
     },
     {
       "name": "mod_cookie_consent.consent",
       "type": "script",
-      "uri": "mod_cookie_consent/js/consent.js",
+      "uri": "mod_cookie_consent/js/consent.min.js",
       "attributes": {
         "defer": true
       }

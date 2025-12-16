@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" client="site" method="upgrade">
+    <name>MOD_COOKIE_CONSENT</name>
+    <version>0.1.0</version>
+    <creationDate>Dezember 2025</creationDate>
+    <author>Michael Buchholz</author>
+    <authorEmail>mail@lean-stack.rocks</authorEmail>
+    <copyright>Weltspiegel Cottbus</copyright>
+    <license>MIT</license>
+    <description>MOD_COOKIE_CONSENT_XML_DESCRIPTION</description>
+
+    <files>
+        <filename module="mod_cookie_consent">mod_cookie_consent.php</filename>
+        <folder>tmpl</folder>
+        <folder>language</folder>
+    </files>
+
+    <media folder="media" destination="mod_cookie_consent">
+        <folder>css</folder>
+        <folder>js</folder>
+        <filename>joomla.asset.json</filename>
+    </media>
+
+    <languages folder="language">
+        <language tag="de-DE">de-DE/mod_cookie_consent.ini</language>
+        <language tag="de-DE">de-DE/mod_cookie_consent.sys.ini</language>
+    </languages>
+
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field
+                    name="consent_text"
+                    type="textarea"
+                    label="Consent Text"
+                    description="Text displayed in the consent banner"
+                    rows="3"
+                    cols="50"
+                    default="Diese Seite nutzt selbst keine Cookies zur Nutzer-Verfolgung. Falls du allerdings YouTube Trailer dir eingebettet anschauen willst, musst du diese explizit freischalten. Damit erlaubst du aber ein Tracking seitens YouTube."
+                />
+
+                <field
+                    name="button_enable"
+                    type="text"
+                    label="Enable Button Text"
+                    description="Text for the enable button"
+                    default="Mit YouTube Videos"
+                />
+
+                <field
+                    name="button_dismiss"
+                    type="text"
+                    label="Dismiss Button Text"
+                    description="Text for the dismiss button"
+                    default="Ok"
+                />
+
+                <field
+                    name="drawer_text"
+                    type="text"
+                    label="Drawer Text"
+                    description="Text shown in the drawer tab"
+                    default="Cookie-Einstellungen"
+                />
+            </fieldset>
+        </fields>
+    </config>
+</extension>

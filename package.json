@@ -1,0 +1,22 @@
+{
+  "name": "mod_cookie_consent",
+  "license": "MIT",
+  "version": "0.1.0",
+  "description": "Cookie Consent Banner für Drittanbieter-Dienste (YouTube, etc.)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/weltspiegel-cottbus/mod_cookie_consent.git"
+  },
+  "scripts": {
+    "build": "node build.js",
+    "package": "npm run build",
+    "changelog": "changelogen --output CHANGELOG.md --noAuthors",
+    "release:patch": "changelogen --release --patch --push --noAuthors",
+    "release:minor": "changelogen --release --minor --push --noAuthors",
+    "release:major": "changelogen --release --major --push --noAuthors",
+    "release": "changelogen --release --push --noAuthors"
+  },
+  "devDependencies": {
+    "changelogen": "^0.6.2"
+  }
+}

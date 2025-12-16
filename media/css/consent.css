@@ -1,0 +1,41 @@
+/**
+ * Cookie Consent Module Styles
+ *
+ * @package     Weltspiegel\Module\CookieConsent
+ * @copyright   Weltspiegel Cottbus
+ * @license     MIT
+ */
+
+.cookie-consent-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.95);
+    color: white;
+    padding: 1.5rem;
+    z-index: 9999;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.cookie-consent-drawer {
+    position: fixed;
+    bottom: 0;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px 4px 0 0;
+    cursor: pointer;
+    z-index: 9999;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.3);
+    display: none;
+}
+
+.cookie-consent-drawer:hover {
+    background: rgba(0, 0, 0, 1);
+}
+
+.cookie-consent-hidden {
+    display: none;
+}

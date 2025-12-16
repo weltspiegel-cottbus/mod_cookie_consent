@@ -156,17 +156,19 @@ npm install
 
 **Before releasing**, update version numbers in three files:
 
-1. **`package.json`**:
-   - Update the `version` field to match the new version
-
-2. **`mod_cookie_consent.xml`**:
+1. **`mod_cookie_consent.xml`**:
    - Update the `<version>` tag to match the new version
+
+2. **`media/joomla.asset.json`**:
+   - Update the `version` field to match the new version
 
 3. **`update-manifest.xml`**:
    - Update the `<version>` tag to match the new version
    - Update the download URL to match the new version tag and filename
 
 4. Commit these changes
+
+**Note:** Do NOT manually update `package.json` - changelogen will automatically bump the version there.
 
 Then create a release:
 

@@ -1,6 +1,14 @@
 # Changelog
 
 
+## v0.1.2
+
+[compare changes](https://github.com/weltspiegel-cottbus/mod_cookie_consent/compare/v0.1.1...v0.1.2)
+
+### 💅 Refactors
+
+- Update component name and creation date. ([1d7612d](https://github.com/weltspiegel-cottbus/mod_cookie_consent/commit/1d7612d))
+
 ## v0.1.1
 
 [compare changes](https://github.com/weltspiegel-cottbus/mod_cookie_consent/compare/v0.1.0...v0.1.1)

@@ -2,7 +2,7 @@
 <extension type="module" client="site" method="upgrade">
     <name>MOD_COOKIE_CONSENT</name>
     <version>0.1.1</version>
-    <creationDate>Dezember 2025</creationDate>
+    <creationDate>16.12.2025</creationDate>
     <author>Michael Buchholz</author>
     <authorEmail>mail@lean-stack.rocks</authorEmail>
     <copyright>Weltspiegel Cottbus</copyright>

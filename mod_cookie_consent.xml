@@ -24,6 +24,8 @@
     <languages folder="language">
         <language tag="de-DE">de-DE/mod_cookie_consent.ini</language>
         <language tag="de-DE">de-DE/mod_cookie_consent.sys.ini</language>
+        <language tag="en-GB">en-GB/mod_cookie_consent.ini</language>
+        <language tag="en-GB">en-GB/mod_cookie_consent.sys.ini</language>
     </languages>
 
     <config>

@@ -1,6 +1,14 @@
 # Changelog
 
 
+## v0.1.3
+
+[compare changes](https://github.com/weltspiegel-cottbus/mod_cookie_consent/compare/v0.1.2...v0.1.3)
+
+### 🏡 Chore
+
+- Add english language strings. ([621535f](https://github.com/weltspiegel-cottbus/mod_cookie_consent/commit/621535f))
+
 ## v0.1.2
 
 [compare changes](https://github.com/weltspiegel-cottbus/mod_cookie_consent/compare/v0.1.1...v0.1.2)

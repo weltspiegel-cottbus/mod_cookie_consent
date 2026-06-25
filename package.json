@@ -1,6 +1,6 @@
 {
   "name": "mod_cookie_consent",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Cookie Consent Banner für Drittanbieter-Dienste (YouTube, etc.)",
   "type": "module",
   "license": "MIT",

@@ -1,6 +1,14 @@
 # Changelog
 
 
+## v0.1.4
+
+[compare changes](https://github.com/weltspiegel-cottbus/mod_cookie_consent/compare/v0.1.3...v0.1.4)
+
+### 🏡 Chore
+
+- Update deps, fix targetplatform and bump version. ([24c7f61](https://github.com/weltspiegel-cottbus/mod_cookie_consent/commit/24c7f61))
+
 ## v0.1.3
 
 [compare changes](https://github.com/weltspiegel-cottbus/mod_cookie_consent/compare/v0.1.2...v0.1.3)

@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "changelogen": "^0.6.2",
-    "esbuild": "^0.27.1",
+    "esbuild": "^0.28.0",
     "lightningcss": "^1.28.3"
   }
 }

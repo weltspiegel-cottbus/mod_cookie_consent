@@ -1,6 +1,14 @@
 # Changelog
 
 
+## v0.1.5
+
+[compare changes](https://github.com/weltspiegel-cottbus/mod_cookie_consent/compare/v0.1.4...v0.1.5)
+
+### 🏡 Chore
+
+- Format and lint files. ([9484e03](https://github.com/weltspiegel-cottbus/mod_cookie_consent/commit/9484e03))
+
 ## v0.1.4
 
 [compare changes](https://github.com/weltspiegel-cottbus/mod_cookie_consent/compare/v0.1.3...v0.1.4)

@@ -2,12 +2,12 @@
   "name": "mod_cookie_consent",
   "version": "0.1.4",
   "description": "Cookie Consent Banner für Drittanbieter-Dienste (YouTube, etc.)",
-  "type": "module",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/weltspiegel-cottbus/mod_cookie_consent.git"
   },
+  "type": "module",
   "scripts": {
     "build:js": "node .build/build.mjs --js",
     "build:css": "node .build/build.mjs --css",

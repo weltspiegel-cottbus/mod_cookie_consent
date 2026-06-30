@@ -1,6 +1,14 @@
 # Changelog
 
 
+## v1.0.0
+
+[compare changes](https://github.com/weltspiegel-cottbus/mod_cookie_consent/compare/v0.1.5...v1.0.0)
+
+### 🚀 Enhancements
+
+- Re-implement consent system to be more robust for future features. ([0c372fe](https://github.com/weltspiegel-cottbus/mod_cookie_consent/commit/0c372fe))
+
 ## v0.1.5
 
 [compare changes](https://github.com/weltspiegel-cottbus/mod_cookie_consent/compare/v0.1.4...v0.1.5)

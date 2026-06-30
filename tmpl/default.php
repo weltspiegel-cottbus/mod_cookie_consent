@@ -5,23 +5,22 @@
  *
  * @copyright   Weltspiegel Cottbus
  * @license     MIT; see LICENSE file
+ *
+ * Rudimentary standalone layout (Bootstrap). The Weltspiegel template ships a
+ * styled override; this is the generic fallback for standalone use.
+ *
+ * @var string   $consentText
+ * @var string   $buttonOk
+ * @var string   $drawerText
+ * @var object[] $categories  Each: ->id, ->label, ->description, ->default (bool)
  */
 
 \defined('_JEXEC') or die;
 
-/**
- * @var string $consentText
- * @var string $buttonEnable
- * @var string $buttonDismiss
- * @var string $drawerText
- */
-
 use Joomla\CMS\Factory;
-use Joomla\CMS\Uri\Uri;
 
 $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
 
-// Register and use CSS
 $wa->registerAndUseStyle(
     'mod_cookie_consent.consent',
     'media/mod_cookie_consent/css/consent.min.css',
@@ -30,7 +29,6 @@ $wa->registerAndUseStyle(
     []
 );
 
-// Register and use JavaScript
 $wa->registerAndUseScript(
     'mod_cookie_consent.consent',
     'media/mod_cookie_consent/js/consent.min.js',
@@ -43,20 +41,33 @@ $wa->registerAndUseScript(
 
 <!-- Cookie Consent Banner -->
 <div id="cookieConsentBanner" class="cookie-consent-banner cookie-consent-hidden">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-8 mb-3 mb-lg-0">
-                <p class="mb-0"><?= htmlspecialchars($consentText) ?></p>
-            </div>
-            <div class="col-lg-4 text-lg-end">
-                <button id="cookieConsentEnable" class="btn btn-danger me-2">
-                    <?= htmlspecialchars($buttonEnable) ?>
-                </button>
-                <button id="cookieConsentDismiss" class="btn btn-success">
-                    <?= htmlspecialchars($buttonDismiss) ?>
-                </button>
-            </div>
+    <div class="container py-3">
+        <p class="mb-3"><?= htmlspecialchars($consentText) ?></p>
+
+        <div class="d-flex flex-column gap-2 mb-3">
+            <?php foreach ($categories as $cat): ?>
+                <div class="form-check form-switch">
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        role="switch"
+                        id="cc-<?= htmlspecialchars($cat->id) ?>"
+                        data-consent-category="<?= htmlspecialchars($cat->id) ?>"
+                        data-consent-default="<?= $cat->default ? '1' : '0' ?>"
+                    >
+                    <label class="form-check-label" for="cc-<?= htmlspecialchars($cat->id) ?>">
+                        <strong><?= htmlspecialchars($cat->label) ?></strong>
+                        <?php if ($cat->description !== ''): ?>
+                            <span class="d-block text-body-secondary small"><?= htmlspecialchars($cat->description) ?></span>
+                        <?php endif; ?>
+                    </label>
+                </div>
+            <?php endforeach; ?>
         </div>
+
+        <button id="cookieConsentOk" type="button" class="btn btn-primary">
+            <?= htmlspecialchars($buttonOk) ?>
+        </button>
     </div>
 </div>
 

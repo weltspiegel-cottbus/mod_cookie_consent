@@ -1,5 +1,10 @@
 /**
- * Cookie Consent Module JavaScript
+ * Cookie Consent Module JavaScript (standalone, category based)
+ *
+ * Self-contained fallback for standalone use. Stores consent per category in
+ * localStorage as JSON ({ "<cat>": true|false }) and dispatches
+ * `cookieConsentChanged` with detail { category, granted } on every change.
+ * The Weltspiegel template ships its own (bundled) implementation.
  *
  * @package     Weltspiegel\Module\CookieConsent
  * @copyright   Weltspiegel Cottbus
@@ -10,75 +15,90 @@
   "use strict";
 
   const STORAGE_KEY = "cookie_consent";
-  const banner = document.getElementById("cookieConsentBanner");
-  const drawer = document.getElementById("cookieConsentDrawer");
-  const enableBtn = document.getElementById("cookieConsentEnable");
-  const dismissBtn = document.getElementById("cookieConsentDismiss");
 
-  // Check current consent state
-  function getConsent() {
-    try {
-      return localStorage.getItem(STORAGE_KEY);
-    } catch {
-      return null;
-    }
-  }
+  const Consent = {
+    getAll() {
+      let raw;
+      try {
+        raw = localStorage.getItem(STORAGE_KEY);
+      } catch {
+        return {};
+      }
+      if (!raw) return {};
 
-  // Save consent state
-  function setConsent(value) {
-    try {
-      localStorage.setItem(STORAGE_KEY, value);
-      // Dispatch event for other scripts to listen to
+      // Old v1 format: a single global "granted"/"denied" string. That global
+      // consent does NOT map to a specific category, so we deliberately discard
+      // it (and clean it up) and require fresh, per-category consent.
+      if (raw === "granted" || raw === "denied") {
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+        } catch {
+          /* ignore */
+        }
+        return {};
+      }
+
+      try {
+        const obj = JSON.parse(raw);
+        return obj && typeof obj === "object" ? obj : {};
+      } catch {
+        return {};
+      }
+    },
+    isGranted(category) {
+      return this.getAll()[category] === true;
+    },
+    set(category, granted) {
+      const all = this.getAll();
+      all[category] = !!granted;
+      this.save(all);
       window.dispatchEvent(
         new CustomEvent("cookieConsentChanged", {
-          detail: { consent: value },
+          detail: { category, granted: !!granted },
         }),
       );
-    } catch (e) {
-      console.error("Could not save consent to localStorage:", e);
-    }
-  }
+    },
+    save(obj) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+      } catch (e) {
+        console.error("Could not save consent to localStorage:", e);
+      }
+    },
+  };
 
-  // Show banner
+  const banner = document.getElementById("cookieConsentBanner");
+  const drawer = document.getElementById("cookieConsentDrawer");
+  if (!banner || !drawer) return;
+
   function showBanner() {
     banner.classList.remove("cookie-consent-hidden");
     drawer.style.display = "none";
   }
 
-  // Hide banner and show drawer
   function hideBanner() {
     banner.classList.add("cookie-consent-hidden");
-    drawer.style.display = "block";
+    drawer.style.display = "";
   }
 
-  // Initialize
-  function init() {
-    const consent = getConsent();
-
-    if (consent === null) {
-      // First visit - show banner
-      showBanner();
-    } else {
-      // Already decided - show drawer
-      hideBanner();
+  // Wire category switches (live toggle)
+  const stored = Consent.getAll();
+  banner.querySelectorAll("[data-consent-category]").forEach(function (sw) {
+    const category = sw.dataset.consentCategory;
+    if (!(category in stored)) {
+      Consent.set(category, sw.dataset.consentDefault === "1");
     }
-  }
-
-  // Event listeners
-  enableBtn.addEventListener("click", function () {
-    setConsent("granted");
-    hideBanner();
+    sw.checked = Consent.isGranted(category);
+    sw.addEventListener("change", function () {
+      Consent.set(category, sw.checked);
+    });
   });
 
-  dismissBtn.addEventListener("click", function () {
-    setConsent("denied");
-    hideBanner();
-  });
+  // No auto-open; banner opens via the drawer or an external request.
+  hideBanner();
 
-  drawer.addEventListener("click", function () {
-    showBanner();
-  });
-
-  // Run on page load
-  init();
+  const okBtn = document.getElementById("cookieConsentOk");
+  if (okBtn) okBtn.addEventListener("click", hideBanner);
+  drawer.addEventListener("click", showBanner);
+  window.addEventListener("showCookieBanner", showBanner);
 })();

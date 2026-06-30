@@ -42,19 +42,11 @@
                 />
 
                 <field
-                    name="button_enable"
+                    name="button_ok"
                     type="text"
-                    label="Enable Button Text"
-                    description="Text for the enable button"
-                    default="Mit YouTube Videos"
-                />
-
-                <field
-                    name="button_dismiss"
-                    type="text"
-                    label="Dismiss Button Text"
-                    description="Text for the dismiss button"
-                    default="Ok"
+                    label="OK Button Text"
+                    description="Label des Schließen-Buttons (übernimmt nichts, schließt nur)"
+                    default="OK"
                 />
 
                 <field
@@ -64,6 +56,47 @@
                     description="Text shown in the drawer tab"
                     default="Cookie-Einstellungen"
                 />
+
+                <field
+                    name="categories"
+                    type="subform"
+                    label="Consent-Kategorien"
+                    description="Verwaltbare Zustimmungs-Kategorien. Jede erscheint als eigener Schalter im Banner. Leer = Standardkategorie 'youtube'."
+                    multiple="true"
+                    layout="joomla.form.field.subform.repeatable-table"
+                >
+                    <form>
+                        <field
+                            name="cat_id"
+                            type="text"
+                            label="ID"
+                            description="Technische ID, z.B. youtube (wird im localStorage und von Feature-Skripten genutzt)"
+                        />
+                        <field
+                            name="cat_label"
+                            type="text"
+                            label="Label"
+                            description="Anzeigename des Schalters"
+                        />
+                        <field
+                            name="cat_description"
+                            type="textarea"
+                            label="Beschreibung"
+                            description="Kurze Erklärung unter dem Label"
+                            rows="2"
+                        />
+                        <field
+                            name="cat_default"
+                            type="radio"
+                            layout="joomla.form.field.radio.switcher"
+                            label="Standardmäßig erlaubt"
+                            default="0"
+                        >
+                            <option value="0">Nein</option>
+                            <option value="1">Ja</option>
+                        </field>
+                    </form>
+                </field>
             </fieldset>
         </fields>
     </config>
